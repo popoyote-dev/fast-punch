@@ -1,0 +1,57 @@
+{% if not request.headers["hx-request"] %}
+{% extends "base.html" %}
+{% endif %}
+
+
+{% block main%}
+
+{% if request.headers["hx-request"] and is_show %}
+    <form hx-post="{{ url_for('admin.config_post') }}" hx-trigger="submit" hx-target=".main">
+        <h1>Configuration</h1>
+        <div>Change the game configuration and reset the game.</p>
+        <div>
+
+            <label for="total">Total Questions</label>
+            <input type="number" min="0" step="1" name="total" id="total" autocomplete="off" value={{total_questions}} required>
+        </div>
+        <div>
+
+            <label for="qtime">Questions delay seconds</label>
+            <input type="number" min="0" step="1" name="qtime" id="qtime" autocomplete="off" value={{question_time}} required>
+        </div>
+        <div>
+
+            <label for="stime">Score delay on seconds</label>
+            <input type="number" min="0" step="1" name="stime" id="stime" autocomplete="off" value={{score_time}} required>
+        </div>
+        <div>
+
+            <label for="ptime">Player wait on seconds</label>
+            <input type="number" min="0" step="1" name="ptime" id="ptime" autocomplete="off" value={{players_time}} required>
+        </div>
+
+        <button type="submit">Save and reset</button>
+    </form>
+
+{% else %}
+    <section>
+
+        <h1>Configuration</h1>
+        <div>Change the game configuration and reset the game.</p>
+        <p>
+            Total Questions: {{total_questions}}<br>
+            Questions delay seconds: {{question_time}}<br>
+            Score delay on seconds: {{score_time}}<br>
+            Player wait on seconds: {{players_time}}<br> 
+        </p>
+
+
+        <button hx-get="{{ url_for('admin.config') }}" hx-trigger="click" hx-target=".main">Reset config</button>
+
+    </section>
+            
+            
+{% endif %}
+
+
+{% endblock %}

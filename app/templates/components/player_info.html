@@ -1,0 +1,9 @@
+<div class="player-info">
+    {% with avatar=player.avatar, nickname=player.nickname %}
+    {% include "components/avatar.html" %}
+    {% endwith %}
+
+    <div class="player-nickname">
+        {{ player.nickname }}
+    </div>
+</div>

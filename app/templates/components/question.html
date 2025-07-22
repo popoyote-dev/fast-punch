@@ -1,0 +1,12 @@
+<h2>{{ question.statement }}</h2>
+<div class="options">
+    {% for option in question.random_option %}
+    <button hx-post="/answer" hx-target=".options" hx-swap="outerHTML"
+        hx-vals='{"option": "{{ option }}", "question_id": "{{ question.id }}"}'>
+        {{ option }}
+    </button>
+    {% endfor %}
+</div>
+{% if waiting %}
+    {% include "components/countdown.html" %}
+{% endif %}

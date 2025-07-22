@@ -1,0 +1,15 @@
+<div class="graph">
+    <dl>
+        <dt>
+            Answers
+        </dt>
+        {% set answers = question.answers %}
+        {% for option in question.options %}
+        <dd>
+            <span class="answer-option">{{ option }}</span>
+            <span class="answer-count"><code>{{ answers[option] }}</code></span>
+        </dd>         
+        {% endfor %}
+    </dl>
+
+</div>

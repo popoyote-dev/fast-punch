@@ -1,0 +1,9 @@
+
+<h2>Avatar gallery</h2>
+<div class="avatar-gallery">
+    {% for ava in avatars %}
+        {% with avatar=ava.url %}
+            {% include "components/avatar.html" %}
+        {% endwith %}
+    {% endfor %}
+</div>

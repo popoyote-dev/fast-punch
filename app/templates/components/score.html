@@ -1,0 +1,17 @@
+<div class="players">
+    <h2>Tabla de puntaje</h2>
+    {% for player in players %}
+        <div class="player-score">
+            <div class="player-place">{{ loop.index }}</div>
+            {% include "components/player_info.html" %}
+            
+            <div class="player-points">
+            🏆 {{ player.total }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="status">
+     <div>Status: {{status}}</div>
+     <div>Question: {{ current }} / {{ total }}</div>
+</div>

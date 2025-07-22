@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Punch</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+
+    <script src="{{ url_for('static', filename='js/htmx.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/htmx-ext-sse.js') }}" type="module"></script>
+    
+    <link rel="icon" href="{{ url_for('static', filename='img/fastpunch.png') }}" type="image/png">
+
+    {% with ogTitle="Fast Punch", ogUrl=request.host_url, domain=request.host_url,
+         ogDescription="Punch faster, hit first", ogLocale="en_En", 
+         ogImage=url_for('static', filename='img/fastpunch.png') %}
+        {% include 'components/opengraph.html' %}
+    {% endwith %}
+
+</head>
+<body hx-ext="sse">
+    <nav class="navbar">
+        {% block navbar %}
+        {% endblock navbar %}
+        <div hx-get="{{ url_for('app.player_info') }}" hx-trigger="player-info from:body"></div>
+
+    </nav>
+    <main class="main">
+        {% block main %}
+        {% endblock main %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<div class="quizz" hx-ext="sse" sse-connect="{{ url_for('app.events') }}" sse-close="end-game">
+    <div sse-swap="question" class="question">
+        <h1>Waiting Players</h1>
+        {% if waiting %}
+            {% include "components/countdown.html" %}
+        {% endif %}
+    </div>
+</div>

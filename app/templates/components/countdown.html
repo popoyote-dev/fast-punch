@@ -1,0 +1,26 @@
+<div class="counter">
+    <div id="countdown-counter"></div>
+</div>
+
+<script>
+    var seconds = {{waiting}};
+
+    function updateCountdown() {
+        let countdown = document.getElementById("countdown-counter");
+        if (!countdown) {
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        countdown.innerHTML = seconds + " segundos";
+
+        
+        if (seconds < 1) {
+            clearInterval(countdownInterval);
+            countdown.innerHTML = "¡Tiempo terminado!";
+        }
+        seconds--;
+    }
+    updateCountdown();
+    var countdownInterval = setInterval(updateCountdown, 1000);
+</script>

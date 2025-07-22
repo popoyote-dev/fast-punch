@@ -1,0 +1,1 @@
+All images in this directory will be available as avatars for users.

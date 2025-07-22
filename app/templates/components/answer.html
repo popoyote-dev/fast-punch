@@ -1,0 +1,17 @@
+<div class="answer">
+    <blockquote>
+        <p>
+            Respuesta: {{ answer.option }}
+            {% if answer.option == question.answer %}
+            <span class="answer-correct">✔️</span>
+            {% else %}
+            <span class="answer-incorrect">❌</span>
+            {% endif %}
+
+        </p>
+    </blockquote>
+</div>
+
+<div sse-swap="answer-graphic" class="graphic">
+    {% include "components/answer_graphic.html" %}
+</div>

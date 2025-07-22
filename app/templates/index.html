@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block main%}
+<div>
+
+    <form hx-post="/register" hx-trigger="submit" hx-target=".main">
+        <h1>Register</h1>
+
+        <div>
+            <label for="nickname">Nickname</label>
+            <input type="text" name="nickname" id="nickname" autocomplete="off" required />
+        </div>
+        <div class="input-avatar">
+         
+            <input type="hidden" name="avatar" id="avatar" value="{{ avatar }}" />
+            
+            {% include "components/avatar.html" %}
+            <button onclick="gallery.showModal()" >Change avatar</button>
+        </div>
+        <p>
+
+            <button type="submit">Enviar</button>
+        </p>
+    </form>
+    
+</div>
+
+    <dialog id="gallery" class="avatar-dialog"
+    closedby="any">   
+    <div hx-get="{{ url_for('app.avatars') }}" hx-trigger="intersect" hx-on:htmx:after-swap="avatarSelect()"></div>
+    </dialog>
+
+
+<script>
+    
+    function avatarSelect () {
+        const avatarGallery = document.querySelector('.avatar-gallery');
+        if (!avatarGallery) return;
+        avatarGallery.addEventListener('click', onAvatarClick);
+    }
+
+    function onAvatarClick(e) {
+        const avatarSelected = e.target;
+        if (avatarSelected && avatarSelected.getAttribute('src')) {
+            const avatarGallery = document.querySelector('.avatar-gallery');
+            if (!avatarGallery) return;
+            avatarGallery.removeEventListener('click', onAvatarClick);
+            localStorage.setItem('selected_avatar', avatarSelected.getAttribute('src'));
+            avatar.value = avatarSelected.getAttribute('src');
+            const avatarPrevious = document.querySelector('.input-avatar .avatar');
+            avatarPrevious.innerHTML = avatarSelected.outerHTML;
+
+        }
+        gallery.close();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectedAvatar = localStorage.getItem('selected_avatar');
+        if (selectedAvatar) {
+            const avatarInput = document.getElementById('avatar'); 
+            if (avatarInput) {
+                avatarInput.value = selectedAvatar;
+            }
+            const avatarPrevious = document.querySelector('.input-avatar .avatar img');
+            if (avatarPrevious) {
+                avatarPrevious.src = selectedAvatar;
+            }
+        }
+
+        gallery.addEventListener('close', function() {
+           const avatarGallery = document.querySelector('.avatar-gallery');
+            if (!avatarGallery) return;
+            avatarGallery.removeEventListener('click', onAvatarClick);
+        });
+
+    });
+
+</script>
+
+
+{% endblock %}
